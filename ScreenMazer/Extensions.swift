@@ -10,9 +10,9 @@ import Foundation
 
 extension String {
     func random() -> String {
-        let rand = Int(arc4random_uniform(UInt32(self.count)))
-        let start = self.index(self.startIndex, offsetBy: rand)
-        let end = self.index(self.startIndex, offsetBy: rand+1)
+        let rand = Int.random(in: 0 ..< count)
+        let start = index(startIndex, offsetBy: rand)
+        let end = index(start, offsetBy: 1)
         return String(self[start..<end])
     }
 }

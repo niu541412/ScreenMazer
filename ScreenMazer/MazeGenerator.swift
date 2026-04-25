@@ -8,7 +8,7 @@
 
 import Foundation
 
-var digits: [String: String] = [
+let digits: [String: String] = [
     "0": "111101101101111",
     "1": "010010010010010",
     "2": "111001111100111",
@@ -22,8 +22,8 @@ var digits: [String: String] = [
     ":": "000010000010000",
 ]
 
-func random(in range: CountableClosedRange<Int>) -> Int {
-    return range.lowerBound + Int(arc4random_uniform(UInt32(range.upperBound - range.lowerBound)))
+func random(in range: ClosedRange<Int>) -> Int {
+    Int.random(in: range)
 }
 
 func timeToArray() -> [[Int]] {

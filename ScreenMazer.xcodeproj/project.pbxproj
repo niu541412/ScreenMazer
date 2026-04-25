@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -179,8 +179,9 @@
 		6FF6D24F1D1DBB1100F5A23C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 2640;
 				ORGANIZATIONNAME = "Beals, Alex";
 				TargetAttributes = {
 					6FF6D2571D1DBB1100F5A23C = {
@@ -189,17 +190,15 @@
 					};
 					A89B9C562120F47F00CE35AC = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = K2WR3HLA57;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 6FF6D2521D1DBB1100F5A23C /* Build configuration list for PBXProject "ScreenMazer" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -315,6 +314,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -329,10 +329,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 			};
 			name = Debug;
 		};
@@ -372,6 +373,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -380,24 +382,29 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
 		6FF6D2631D1DBB1100F5A23C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/ScreenMazer/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexbeals.ScreenMazer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -410,14 +417,17 @@
 		6FF6D2641D1DBB1100F5A23C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/ScreenMazer/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexbeals.ScreenMazer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -445,17 +455,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = K2WR3HLA57;
+				DEVELOPMENT_TEAM = M23CACV5GB;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = TestApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexbeals.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -478,15 +491,18 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = K2WR3HLA57;
+				DEVELOPMENT_TEAM = M23CACV5GB;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = TestApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexbeals.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

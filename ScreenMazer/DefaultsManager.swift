@@ -8,8 +8,19 @@
 
 import ScreenSaver
 
-class DefaultsManager {
-    var defaults: UserDefaults
+final class DefaultsManager {
+    private enum Keys {
+        static let color = "color"
+        static let solveColor = "solveColor"
+        static let duration = "duration"
+        static let solveDuration = "solveDuration"
+        static let mazeSize = "mazeSize"
+        static let clockSize = "clockSize"
+        static let hourClock = "hourClock"
+        static let solve = "solve"
+    }
+
+    let defaults: UserDefaults
 
     init() {
         let identifier = Bundle(for: DefaultsManager.self).bundleIdentifier
@@ -18,134 +29,99 @@ class DefaultsManager {
 
     var color: NSColor {
         set(newColor) {
-            setAttribute(newColor, key: "color")
+            setColor(newColor, key: Keys.color)
         }
         get {
-            return getColor() ?? .gray
+            return getColor(forKey: Keys.color) ?? NSColor(calibratedRed: 0.10, green: 0.73, blue: 0.96, alpha: 1.0)
         }
     }
 
     var solveColor: NSColor {
         set(newColor) {
-            setAttribute(newColor, key: "solveColor")
+            setColor(newColor, key: Keys.solveColor)
         }
         get {
-            return getSolveColor() ?? .white
+            return getColor(forKey: Keys.solveColor) ?? NSColor(calibratedRed: 0.66, green: 0.97, blue: 0.86, alpha: 1.0)
         }
     }
 
     var duration: Int {
         set(newDuration) {
-            setAttribute(newDuration, key: "duration")
+            defaults.set(newDuration, forKey: Keys.duration)
+            defaults.synchronize()
         }
         get {
-            return getDuration() ?? 30
+            let value = defaults.object(forKey: Keys.duration) as? Int
+            return value ?? 30
         }
     }
 
     var solveDuration: Int {
         set(newDuration) {
-            setAttribute(newDuration, key: "solveDuration")
+            defaults.set(newDuration, forKey: Keys.solveDuration)
+            defaults.synchronize()
         }
         get {
-            return getSolveDuration() ?? 10
+            let value = defaults.object(forKey: Keys.solveDuration) as? Int
+            return value ?? 10
         }
     }
 
     var mazeSize: Double {
         set(newSize) {
-            setAttribute(newSize, key: "mazeSize")
+            defaults.set(newSize, forKey: Keys.mazeSize)
+            defaults.synchronize()
         }
         get {
-            return getMazeSize() ?? 7.0
+            let value = defaults.object(forKey: Keys.mazeSize) as? Double
+            return value ?? 7.0
         }
     }
 
     var clockSize: Int {
         set(newSize) {
-            setAttribute(newSize, key: "clockSize")
+            defaults.set(newSize, forKey: Keys.clockSize)
+            defaults.synchronize()
         }
         get {
-            return getClockSize() ?? 1
+            let value = defaults.object(forKey: Keys.clockSize) as? Int
+            return value ?? 1
         }
     }
 
     var hourClock: Bool {
         set(newClock) {
-            setAttribute(newClock, key: "hourClock")
+            defaults.set(newClock, forKey: Keys.hourClock)
+            defaults.synchronize()
         }
         get {
-            return getHourClock() ?? false
+            let value = defaults.object(forKey: Keys.hourClock) as? Bool
+            return value ?? false
         }
     }
 
     var solve: Bool {
         set(newSolve) {
-            setAttribute(newSolve, key: "solve")
+            defaults.set(newSolve, forKey: Keys.solve)
+            defaults.synchronize()
         }
         get {
-            return getSolve() ?? true
+            let value = defaults.object(forKey: Keys.solve) as? Bool
+            return value ?? true
         }
     }
 
-    func setAttribute(_ attribute: Any, key: String) {
-        defaults.set(NSKeyedArchiver.archivedData(withRootObject: attribute), forKey: key)
+    private func setColor(_ color: NSColor, key: String) {
+        let archivedColor = try? NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false)
+        defaults.set(archivedColor, forKey: key)
         defaults.synchronize()
     }
 
-    func getColor() -> NSColor? {
-        if let info = defaults.object(forKey: "color") as? Data {
-            return NSKeyedUnarchiver.unarchiveObject(with: info) as? NSColor
+    private func getColor(forKey key: String) -> NSColor? {
+        guard let info = defaults.data(forKey: key) else {
+            return nil
         }
-        return nil
-    }
 
-    func getSolveColor() -> NSColor? {
-        if let info = defaults.object(forKey: "solveColor") as? Data {
-            return NSKeyedUnarchiver.unarchiveObject(with: info) as? NSColor
-        }
-        return nil
-    }
-
-    func getDuration() -> Int? {
-        if let info = defaults.object(forKey: "duration") as? Data {
-            return NSKeyedUnarchiver.unarchiveObject(with: info) as? Int
-        }
-        return nil
-    }
-
-    func getSolveDuration() -> Int? {
-        if let info = defaults.object(forKey: "solveDuration") as? Data {
-            return NSKeyedUnarchiver.unarchiveObject(with: info) as? Int
-        }
-        return nil
-    }
-
-    func getMazeSize() -> Double? {
-        if let info = defaults.object(forKey: "mazeSize") as? Data {
-            return NSKeyedUnarchiver.unarchiveObject(with: info) as? Double
-        }
-        return nil
-    }
-
-    func getClockSize() -> Int? {
-        if let info = defaults.object(forKey: "clockSize") as? Data {
-            return NSKeyedUnarchiver.unarchiveObject(with: info) as? Int
-        }
-        return nil
-    }
-
-    func getHourClock() -> Bool? {
-        if let info = defaults.object(forKey: "hourClock") as? Data {
-            return NSKeyedUnarchiver.unarchiveObject(with: info) as? Bool
-        }
-        return nil
-    }
-
-    func getSolve() -> Bool? {
-        if let info = defaults.object(forKey: "solve") as? Data {
-            return NSKeyedUnarchiver.unarchiveObject(with: info) as? Bool
-        }
-        return nil
+        return try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSColor.self, from: info)
     }
 }

@@ -23,6 +23,6 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2018 Beals, Alex. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
-	<string>ScreenMazer.swiftSS</string>
+	<string>$(PRODUCT_MODULE_NAME).swiftSS</string>
 </dict>
 </plist>
