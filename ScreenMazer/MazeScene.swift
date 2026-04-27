@@ -20,6 +20,8 @@ class MazeScene: SKScene {
 
     var duration: Int = DefaultsManager().duration
     var solveDuration: Int = DefaultsManager().solveDuration
+    var mazeColor: SKColor = DefaultsManager().color
+    var solutionColor: SKColor = DefaultsManager().solveColor
     var lastUpdateTime = 0.0
     var solve: Bool = true
 
@@ -48,30 +50,36 @@ class MazeScene: SKScene {
     func generateMaze() {
         // Clear everything
         index = 0
+        pause = -1
+        lastUpdateTime = 0
         for s in squares {
             for square in s {
                 square.removeFromParent()
             }
         }
         squares = []
-        squareSize = CGFloat(DefaultsManager().mazeSize)
+        let defaults = DefaultsManager()
+        squareSize = CGFloat(defaults.mazeSize)
         if (isPreview) {
             squareSize = squareSize / 4
             if (squareSize < 1) {
                 squareSize = 1
             }
         }
-        duration = DefaultsManager().duration
+        duration = max(defaults.duration, 1)
+        solveDuration = max(defaults.solveDuration, 1)
+        mazeColor = defaults.color
+        solutionColor = defaults.solveColor
 
         // Add a bunch of squares
-        rows = Int(size.height / squareSize)
-        cols = Int(size.width / squareSize)
+        rows = max(Int(size.height / squareSize), 3)
+        cols = max(Int(size.width / squareSize), 3)
         maze = MazeGenerator(rows, cols)
 
         let bottomOffset = (size.height - CGFloat(rows) * squareSize) / 2
         let leftOffset = (size.width - CGFloat(cols) * squareSize) / 2
 
-        solve = DefaultsManager().solve
+        solve = defaults.solve
 
         for r in 0...rows-1 {
             squares.append([])
@@ -90,7 +98,12 @@ class MazeScene: SKScene {
         }
     }
 
-    override func update(_ currentTime: TimeInterval) {
+    func advance() {
+        let currentTime = Date().timeIntervalSinceReferenceDate
+        advance(currentTime)
+    }
+
+    private func advance(_ currentTime: TimeInterval) {
         if (maze == nil) {
             return
         }
@@ -133,7 +146,7 @@ class MazeScene: SKScene {
                     let pos = maze!.orderChanged[index]
 
                     squares[pos.r][pos.c].removeAllActions()
-                    squares[pos.r][pos.c].run(SKAction.colorize(with: DefaultsManager().color, colorBlendFactor: 1, duration: 0.5))
+                    squares[pos.r][pos.c].run(SKAction.colorize(with: mazeColor, colorBlendFactor: 1, duration: 0.5))
 
                     index += (i == stepSpeed ? 0 : 1)
                 } else {
@@ -147,7 +160,7 @@ class MazeScene: SKScene {
                     let pos = maze!.solution[index - maze!.orderChanged.count]
 
                     squares[pos.r][pos.c].removeAllActions()
-                    squares[pos.r][pos.c].run(SKAction.colorize(with: DefaultsManager().solveColor, colorBlendFactor: 1, duration: 0.5))
+                    squares[pos.r][pos.c].run(SKAction.colorize(with: solutionColor, colorBlendFactor: 1, duration: 0.5))
 
                     index += (i == solveSpeed ? 0 : 1)
                 } else {
@@ -174,5 +187,8 @@ class MazeScene: SKScene {
 
         // Normal proceedings
         index += 1
+    }
+
+    override func update(_ currentTime: TimeInterval) {
     }
 }

@@ -134,14 +134,15 @@ class MazeGenerator {
         let timeBools = timeToArray()
         // Randomly offset it
         let boundaryWidth = 4
-        let topOffset = random(in: boundaryWidth ... rows - boundaryWidth - timeBools.count)
-        let leftOffset = random(in: boundaryWidth ... cols - boundaryWidth - timeBools[0].count)
+        let canFitClock = rows > boundaryWidth * 2 + timeBools.count && cols > boundaryWidth * 2 + timeBools[0].count
+        if (canFitClock) {
+            let topOffset = random(in: boundaryWidth ... rows - boundaryWidth - timeBools.count)
+            let leftOffset = random(in: boundaryWidth ... cols - boundaryWidth - timeBools[0].count)
 
-        // Center it
-        // let topOffset = rows / 2 - timeBools.count / 2
-        // let leftOffset = cols / 2 - timeBools[0].count / 2
+            // Center it
+            // let topOffset = rows / 2 - timeBools.count / 2
+            // let leftOffset = cols / 2 - timeBools[0].count / 2
 
-        if (topOffset >= 0 && leftOffset >= 0) {
             for r in 0...timeBools.count-1 {
                 for c in 0...timeBools[0].count-1 {
                     // If it won't crash
