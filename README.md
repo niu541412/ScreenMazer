@@ -14,12 +14,23 @@ ScreenMazer is a screensaver for Mac that builds a maze, and then solves it, rep
 </p>
 
 
-## Installation:
-1. Download the [latest zip file](https://github.com/dado3212/ScreenMazer/raw/master/ScreenMazer.zip), and extract ScreenMazer.saver from the .zip file.  Then double click to add it to Settings.  Feel free to customize it!
+## Installation
+
+Download the archive for your Mac from the latest [release](../../releases/latest):
+
+- `ScreenMazer-arm64.saver.zip` for Apple silicon Macs
+- `ScreenMazer-x86_64.saver.zip` for Intel Macs
+
+Extract `ScreenMazer.saver`, then double-click it to install it in System Settings.
+Feel free to customize it!
 
 Alternatively, you can build it from the source here.
 
-If you're running into Security alerts, they're just from compiling on an older version of Xcode. You can override them by going to `Settings` -> `Privacy & Security` and clicking "Open Anyway".
+Every push and pull request is also built by GitHub Actions. Development builds can
+be downloaded from the latest successful [workflow run](../../actions/workflows/build.yml).
+
+If macOS blocks the screen saver because it is not notarized, go to
+`System Settings` -> `Privacy & Security` and click **Open Anyway**.
 
 ### With Help From
 * [ScreenSaverMinimal](https://github.com/mirkofetter/ScreenSaverMinimal)

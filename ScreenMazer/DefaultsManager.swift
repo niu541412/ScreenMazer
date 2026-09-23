@@ -32,7 +32,7 @@ final class DefaultsManager {
             setColor(newColor, key: Keys.color)
         }
         get {
-            return getColor(forKey: Keys.color) ?? NSColor(calibratedRed: 0.10, green: 0.73, blue: 0.96, alpha: 1.0)
+            return getColor(forKey: Keys.color) ?? .gray
         }
     }
 
@@ -41,7 +41,7 @@ final class DefaultsManager {
             setColor(newColor, key: Keys.solveColor)
         }
         get {
-            return getColor(forKey: Keys.solveColor) ?? NSColor(calibratedRed: 0.66, green: 0.97, blue: 0.86, alpha: 1.0)
+            return getColor(forKey: Keys.solveColor) ?? .white
         }
     }
 
